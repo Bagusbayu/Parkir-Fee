@@ -5,29 +5,24 @@ function hitungBiayaParkir(masuk, keluar) {
   const formatWaktu = 'YYYY-MM-DD HH:mm:ss';
   const masukWaktu = moment(masuk, formatWaktu);
   const keluarWaktu = moment(keluar, formatWaktu);
-  const durasiJam = keluarWaktu.diff(masukWaktu, 'hours', true);
-  console.log('durasiJam: ', durasiJam);
-  let biaya = 7000; // Biaya awal
+  const periodePertama = 12;  // Durasi periode pertama dalam jam
+  const hargaPertama = 7000;
+  const hargaTambahan = 3000;
+  let durasiJam = keluarWaktu.diff(masukWaktu, 'hours', true);
+  const hargaPerPeriode = [hargaPertama, hargaPertama + hargaTambahan];  // Harga per periode
+  let biaya = 0;
 
-  let durasiJamSisa = durasiJam;
-
-  while (durasiJamSisa > 0) {
-    console.log('durasiJamSisa > 0: ', durasiJamSisa > 0);
-    if (durasiJamSisa < 12) {
-      console.log('durasiJamSisa < 12: ', durasiJamSisa < 12);
-      biaya += 7000;
-      console.log('biaya += 7000: ', biaya += 7000);
-      durasiJamSisa = 0;
-      console.log('durasiJamSisa = 0: ', durasiJamSisa = 0);
+  while (durasiJam > 0) {
+    if (durasiJam <= periodePertama) {
+      biaya += hargaPerPeriode[0];
     } else {
-      biaya + 3000;
-      console.log('biaya += 3000: ', biaya += 3000);
-      durasiJamSisa -= 12;
-      console.log('durasiJamSisa -= 12: ', durasiJamSisa -= 12);
+      biaya += hargaPerPeriode[0];
+      biaya += hargaTambahan;
     }
+    durasiJam -= periodePertama;
   }
 
- return biaya;
+  return biaya;
 }
 
 const masuk = readline.question('Masukkan waktu parkir masuk (YYYY-MM-DD HH:mm:ss): ');
