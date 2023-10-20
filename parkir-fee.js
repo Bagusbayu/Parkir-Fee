@@ -9,13 +9,21 @@ function hitungBiayaParkir(masuk, keluar) {
   console.log('durasiJam: ', durasiJam);
   let biaya = 7000; // Biaya awal
 
-  if (durasiJam > 12) {
-    biaya += 3000;
-    if (durasiJam > 24) {
+  let durasiJamSisa = durasiJam;
+
+  while (durasiJamSisa > 0) {
+    console.log('durasiJamSisa > 0: ', durasiJamSisa > 0);
+    if (durasiJamSisa < 12) {
+      console.log('durasiJamSisa < 12: ', durasiJamSisa < 12);
       biaya += 7000;
-      if (durasiJam > 36) {
-        biaya += 3000 * Math.ceil((durasiJam - 36) / 12);
-      }
+      console.log('biaya += 7000: ', biaya += 7000);
+      durasiJamSisa = 0;
+      console.log('durasiJamSisa = 0: ', durasiJamSisa = 0);
+    } else {
+      biaya + 3000;
+      console.log('biaya += 3000: ', biaya += 3000);
+      durasiJamSisa -= 12;
+      console.log('durasiJamSisa -= 12: ', durasiJamSisa -= 12);
     }
   }
 
